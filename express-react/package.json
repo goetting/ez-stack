@@ -1,0 +1,65 @@
+{
+  "name": "ez-stack",
+  "version": "0.1.0",
+  "description": "generates stack using ez-flux, ez-react, inferno and koa",
+  "main": "index.js",
+  "scripts": {
+    "start": "bash start.sh",
+    "lint:fix": "eslint --color --fix --ext .js ./src",
+    "test": "NODE_ENV=test jest --watch",
+    "test:coverage": "NODE_ENV=test jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goetting/ez-stack.git"
+  },
+  "keywords": [
+    "generates",
+    "stack",
+    "ez-flux",
+    "ez-react",
+    "react",
+    "express"
+  ],
+  "dependencies": {
+    "babel-loader": "^6.4.1",
+    "express": "^4.15.2",
+    "ez-flux": "0.2.x",
+    "ez-react": "0.1.x",
+    "jsx-loader": "^0.13.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
+    "babel-plugin-inferno": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "concurrently": "^3.3.0",
+    "enzyme": "^2.7.1",
+    "eslint": "3.13.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-flowtype": "2.29.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
+    "nodemon": "^1.11.0",
+    "react-addons-test-utils": "^15.4.2",
+    "webpack": "^2.2.1"
+  },
+  "author": "Goetz Goetting",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goetting/ez-stack/issues"
+  },
+  "homepage": "https://github.com/goetting/ez-stack#readme"
+}
