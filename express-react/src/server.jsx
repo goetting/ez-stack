@@ -3,18 +3,21 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
-import dataLayer from './data-layer';
-import Routes from './components/routes';
+import { Routes, setStateByRoute } from './components/routes';
+import ezFlux from './ez-flux';
 
 const app = express();
 const expressRouter = express.Router();
 const port = 1337;
 
-expressRouter.get('/favicon.ico', (req, res) => {
-  res.statusCode = 404;
-  res.end();
-})
-expressRouter.get('*', (req, res) => dataLayer(req.url).then((data) => {
+expressRouter.get('/favicon.ico', (req, res) => res.status(404).end());
+expressRouter.get('*', async (req, res) => {
+  try {
+    await setStateByRoute(req.url);
+  } catch (error) {
+    res.status(500).end();
+    throw error;
+  }
   const context = {};
   const App = renderToString(
     <StaticRouter location={req.url} context={context}>
@@ -25,20 +28,21 @@ expressRouter.get('*', (req, res) => dataLayer(req.url).then((data) => {
   if (context.url) {
     res.redirect(301, context.url);
   } else {
-    res.send(`<!doctype html>
+    res.send(
+      `<!doctype html>
       <html lang="en">
         <head>
           <title>EZ-APP</title>
-          <script type="text/javascript">window.ezData = ${JSON.stringify(data)};</script>
+          <script type="text/javascript">window.ezState = ${JSON.stringify(ezFlux.state)};</script>
         </head>
         <body>
           <div id="ez-app">${App}</div>
           <script type="text/javascript" src="static/client.js"></script>
         </body>
-      </html>
-    `);
+      </html>`,
+    );
   }
-}));
+});
 
 app.use('/static', express.static(`${__dirname}/static`));
 app.use(expressRouter);

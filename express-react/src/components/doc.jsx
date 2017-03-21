@@ -1,6 +1,22 @@
 /* @flow */
 import React from 'react';
+import ezFlux from '../ez-flux';
 
-export default function Doc() {
-  return <div>I am Doc</div>;
+type DocProps = { loadData: () => Promise<Object> };
+
+export default class Doc extends React.PureComponent {
+  componentDidMount() {
+    this.props.loadData();
+  }
+
+  props: DocProps;
+
+  render() {
+    return (
+      <div>
+        <div>I am Doc</div>
+        <div>{ezFlux.state.test.hello}</div>
+      </div>
+    );
+  }
 }

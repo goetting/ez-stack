@@ -14,7 +14,7 @@ module.exports = [
   {
     name: 'browser',
     entry: [
-      'core-js/fn/promise',
+      'babel-polyfill',
       './src/client.jsx'
     ],
     output: {
@@ -29,7 +29,7 @@ module.exports = [
     name: 'server',
     externals: /^[a-z\-0-9]+$/,
     entry: [
-      'core-js/fn/promise',
+      'babel-polyfill',
       './src/server.jsx',
     ],
     target: 'node',
