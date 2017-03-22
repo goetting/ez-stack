@@ -11,79 +11,74 @@ type RouteData = {
   query: Object,
 };
 type RouteConfig = {
-  key: string,
   path: string,
   Component: Function,
-  loadData: (routeData: RouteData, viewData?: any) => Promise<void>,
+  onRoute: (routeData: RouteData, viewData?: any) => Promise<void>,
 };
-
-function normalizeRouteData(data: Object, source: string): RouteData {
-  const { search, pathname } = data;
-  let { query, path, params } = data;
-
-  switch (source) {
-    case 'express':
-      params = Object
-        .keys(params)
-        .map(key => params[key].substr(1));
-      break;
-    case 'react':
-      path = pathname;
-      params = path
-        .split('/')
-        .filter(el => !!el);
-      query = search
-        .substr(1)
-        .split('&')
-        .filter(el => !!el)
-        .reduce((qry, el) => {
-          const [key, val] = el.split('=');
-
-          qry[key] = val;
-          return qry;
-        }, {});
-      break;
-    default:
-  }
-  return { path, params, query };
-}
 
 const routes: RouteConfig[] = [
   {
-    key: 'doc',
     path: '/doc',
     Component: Doc,
-    loadData: async (routeData) => {
+    onRoute: async (routeData) => {
       await ezFlux.actions.test.loadData(routeData);
     },
   },
   {
-    key: 'root',
     path: '/',
     Component: Root,
-    loadData: async () => {},
+    onRoute: async () => {},
   },
 ];
 
-export function setStateByRoute(req: Object): Promise<void> {
-  const route = routes.find((el) => {
-    const match = matchPath(req.path, el);
+const normalizeRequest = ({ path, query, params }: Object): RouteData => ({
+  path,
+  query,
+  params: Object
+    .keys(params)
+    .map(key => params[key].substr(1)),
+});
+
+const normalizeLocation = ({ pathname, search }: Object): RouteData => ({
+  path: pathname,
+  params: pathname
+    .split('/')
+    .filter(el => el !== ''),
+  query: search
+    .substr(1)
+    .split('&')
+    .filter(el => el !== '')
+    .reduce((qry, el) => {
+      const [key, val] = el.split('=');
+
+      qry[key] = val;
+      return qry;
+    }, {}),
+});
+
+const getMatchingRoute = (path: string): RouteConfig =>
+  routes.find((el) => {
+    const match = (matchPath(path, el) || {});
 
     return match && match.isExact;
   }) || routes[1];
 
-  return route.loadData(normalizeRouteData(req, 'express'));
-}
+export const triggerOnRouteCallBack = (req: Object): Promise<void> =>
+  getMatchingRoute(req.path)
+    .onRoute(normalizeRequest(req));
 
-export const Routes = () => (
+export const RouteSwitcher = () => (
   <Switch>
-    {routes.map(({ loadData, Component, key, path }) => {
-      const render = (props: any) => {
-        const routeData = normalizeRouteData(props.location, 'react');
+    {routes.map(({ onRoute, Component, path }) => (
+      <Route
+        path={path}
+        key={path}
+        render={(props: any) => {
+          const routeData = normalizeLocation(props.location);
 
-        return <Component {...props} loadData={viewData => loadData(routeData, viewData)} />;
-      };
-      return <Route {...{ render, key, path }} />;
-    })}
+          return <Component {...props} callOnRoute={viewData => onRoute(routeData, viewData)} />;
+        }}
+      />
+    ))}
   </Switch>
 );

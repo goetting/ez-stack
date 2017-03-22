@@ -6,7 +6,7 @@ type DocProps = { loadData: () => Promise<Object> };
 
 export default class Doc extends React.PureComponent {
   componentDidMount() {
-    this.props.loadData();
+    this.props.callOnRoute();
   }
 
   props: DocProps;

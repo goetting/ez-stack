@@ -2,12 +2,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { Routes } from './components/routes';
+import { RouteSwitcher } from './components/routes';
 
 ReactDOM.render(
   (
     <BrowserRouter>
-      <Routes />
+      <RouteSwitcher />
     </BrowserRouter>
   ),
   document.getElementById('ez-app'),

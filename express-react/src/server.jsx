@@ -3,7 +3,7 @@ import express from 'express';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
-import { Routes, setStateByRoute } from './components/routes';
+import * as routes from './components/routes';
 import ezFlux from './ez-flux';
 
 const app = express();
@@ -13,7 +13,7 @@ const port = 1337;
 expressRouter.get('/favicon.ico', (req, res) => res.status(404).end());
 expressRouter.get('*', async (req, res) => {
   try {
-    await setStateByRoute(req);
+    await routes.triggerOnRouteCallBack(req);
   } catch (error) {
     res.status(500).end();
     throw error;
@@ -21,7 +21,7 @@ expressRouter.get('*', async (req, res) => {
   const context = {};
   const App = renderToString(
     <StaticRouter location={req.url} context={context}>
-      <Routes />
+      <routes.RouteSwitcher />
     </StaticRouter>,
   );
 
