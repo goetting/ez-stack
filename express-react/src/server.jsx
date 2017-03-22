@@ -13,7 +13,7 @@ const port = 1337;
 expressRouter.get('/favicon.ico', (req, res) => res.status(404).end());
 expressRouter.get('*', async (req, res) => {
   try {
-    await setStateByRoute(req.url);
+    await setStateByRoute(req);
   } catch (error) {
     res.status(500).end();
     throw error;

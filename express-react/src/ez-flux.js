@@ -1,21 +1,13 @@
 import EZFlux from 'ez-flux';
-
-const timeout = ms => new Promise(res => setTimeout(res, ms));
+import testConfig from './state-config/test.state';
 
 export default new EZFlux(
   {
-    test: {
-      values: {
-        dataLoaded: false,
-        hello: 'hi.',
-      },
-      actions: {
-        loadData: async () => {
-          await timeout(1000);
-          return { dataLoaded: true, hello: 'Hello World!' };
-        },
-      },
-    },
+    ...testConfig,
   },
-  { initialState: (typeof window === 'object' && window.ezState) || {} },
+  {
+    initialState: (typeof window === 'object' && window.ezState) || {},
+    throttleUpdates: true,
+    debug: process.env.NODE_ENV === 'development',
+  },
 );
