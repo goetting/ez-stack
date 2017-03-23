@@ -13,7 +13,7 @@ type RouteData = {
 type RouteConfig = {
   path: string,
   Component: Function,
-  onRoute: (routeData: RouteData, viewData?: any) => Promise<void>,
+  onRoute: (routeData: RouteData) => Promise<void> | void,
 };
 
 const routes: RouteConfig[] = [
@@ -27,7 +27,7 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     Component: Root,
-    onRoute: async () => {},
+    onRoute: () => {},
   },
 ];
 
@@ -63,7 +63,7 @@ const getMatchingRoute = (path: string): RouteConfig =>
     return match && match.isExact;
   }) || routes[1];
 
-export const triggerOnRouteCallBack = (req: Object): Promise<void> =>
+export const triggerOnRouteCallBack = (req: Object): Promise<void> | void =>
   getMatchingRoute(req.path)
     .onRoute(normalizeRequest(req));
 
@@ -76,7 +76,7 @@ export const RouteSwitcher = () => (
         render={(props: any) => {
           const routeData = normalizeLocation(props.location);
 
-          return <Component {...props} callOnRoute={viewData => onRoute(routeData, viewData)} />;
+          return <Component {...props} onRoute={() => onRoute(routeData)} />;
         }}
       />
     ))}

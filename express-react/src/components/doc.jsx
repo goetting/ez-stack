@@ -2,11 +2,11 @@
 import React from 'react';
 import ezFlux from '../ez-flux';
 
-type DocProps = { loadData: () => Promise<Object> };
+type DocProps = { onRoute: () => Promise<Object> };
 
 export default class Doc extends React.PureComponent {
   componentDidMount() {
-    this.props.callOnRoute();
+    this.props.onRoute();
   }
 
   props: DocProps;
