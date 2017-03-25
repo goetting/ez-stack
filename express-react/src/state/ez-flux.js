@@ -8,6 +8,6 @@ export default new EZFlux(
   {
     initialState: (typeof window === 'object' && window.ezState) || {},
     throttleUpdates: true,
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.NODE_ENV === 'development' && process.title !== 'node',
   },
 );

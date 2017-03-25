@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Switch, matchPath } from 'react-router-dom';
 import Root from './root';
 import Doc from './doc';
-import ezFlux from '../ez-flux';
+import ezFlux from '../state/ez-flux';
 
 type RouteData = {
   path: string,
@@ -57,26 +57,25 @@ const normalizeLocation = ({ pathname, search }: Object): RouteData => ({
 });
 
 const getMatchingRoute = (path: string): RouteConfig =>
-  routes.find((el) => {
-    const match = (matchPath(path, el) || {});
+  routes
+    .find(el => (matchPath(path, el) || {}).isExact)
+    || routes[1];
 
-    return match && match.isExact;
-  }) || routes[1];
 
-export const triggerOnRouteCallBack = (req: Object): Promise<void> | void =>
+export const onRoute = (req: Object): Promise<void> | void =>
   getMatchingRoute(req.path)
     .onRoute(normalizeRequest(req));
 
 export const RouteSwitcher = () => (
   <Switch>
-    {routes.map(({ onRoute, Component, path }) => (
+    {routes.map(({ onRoute: onRouteCB, Component, path }) => (
       <Route
         path={path}
         key={path}
         render={(props: any) => {
           const routeData = normalizeLocation(props.location);
 
-          return <Component {...props} onRoute={() => onRoute(routeData)} />;
+          return <Component {...props} onRoute={() => onRouteCB(routeData)} />;
         }}
       />
     ))}

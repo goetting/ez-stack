@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router';
 import sendIndex from './server-libs/index-responder';
 import cache from './server-libs/cache';
 import * as routes from './components/routes';
-import ezFlux from './ez-flux';
+import ezFlux from './state/ez-flux';
 
 const port = 1337;
 const app = express();
@@ -24,7 +24,7 @@ router
   .get('*', cache.middleWare)
   .get('*', async (req, res) => {
     try {
-      await routes.triggerOnRouteCallBack(req);
+      await routes.onRoute(req);
     } catch (error) {
       res.status(500).end();
       throw error;
@@ -43,5 +43,6 @@ router
       sendIndex({ ezState, App }, res);
       cache.set(req, ezState, App);
     }
+    ezFlux.resetState();
   });
 
