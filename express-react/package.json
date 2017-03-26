@@ -6,6 +6,7 @@
   "scripts": {
     "start": "bash start.sh",
     "lint:fix": "eslint --color --fix --ext .js ./src",
+    "flow": "flow",
     "test": "NODE_ENV=test jest --watch",
     "test:coverage": "NODE_ENV=test jest --coverage"
   },
@@ -23,8 +24,9 @@
   ],
   "dependencies": {
     "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
     "express": "^4.15.2",
-    "ez-flux": "https://github.com/goetting/ez-flux#master",
+    "ez-flux": "0.3.x",
     "ez-react": "0.1.x",
     "jsx-loader": "^0.13.2",
     "react": "^15.4.2",

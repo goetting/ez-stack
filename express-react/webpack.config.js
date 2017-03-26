@@ -15,7 +15,7 @@ module.exports = [
     name: 'browser',
     entry: [
       'babel-polyfill',
-      './src/client.jsx'
+      './src/app-entry-points/client/client.jsx'
     ],
     output: {
       path: `${distPath}/static`,
@@ -24,23 +24,6 @@ module.exports = [
     },
     devtool: 'source-map',
     resolve: extensions,
-    module: moduleLoaders
-  }, {
-    name: 'server',
-    externals: /^[a-z\-0-9]+$/,
-    entry: [
-      'babel-polyfill',
-      './src/server.jsx',
-    ],
-    target: 'node',
-    node: { __dirname: false, __filename: false },
-    devtool: false,
-    resolve: extensions,
-    output: {
-      path: distPath,
-      filename: 'server.js',
-      libraryTarget: 'commonjs2'
-    },
     module: moduleLoaders
   }
 ];

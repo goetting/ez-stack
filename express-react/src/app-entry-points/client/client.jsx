@@ -2,8 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import ezFlux from './state/ez-flux';
-import { RouteSwitcher } from './components/routes';
+import ezFlux from '../../state/ez-flux';
+import RouteSwitcher from '../../components/route-switcher';
 
 window.ezFlux = ezFlux;
 
