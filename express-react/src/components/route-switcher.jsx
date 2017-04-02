@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import routes from '../routes';
 import type { RouteData } from '../routes';
 
-const normalizeLocation = ({ pathname, search }: Object): RouteData => ({
+const normalizeRouteData = ({ pathname, search }: Object): RouteData => ({
   path: pathname,
   params: pathname
     .split('/')
@@ -28,7 +28,7 @@ const RouteSwitcher = () => (
         path={path}
         key={path}
         render={(props: any) => {
-          const routeData = normalizeLocation(props.location);
+          const routeData = normalizeRouteData(props.location);
 
           return <Component {...props} onRoute={() => onRouteCB(routeData)} />;
         }}

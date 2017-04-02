@@ -8,8 +8,8 @@ export default {
       hello: 'hi.',
     },
     actions: {
-      loadData: async (payload, ezFlux): Object | void => {
-        if (ezFlux.state.test.dataLoaded) return;
+      loadData: async (payload, { dataLoaded }): Object | void => {
+        if (dataLoaded) return;
         await timeout(1000);
         return { dataLoaded: true, hello: 'Hello World!' };
       },

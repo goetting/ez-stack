@@ -1,6 +1,7 @@
 /* @flow */
 import React from 'react';
 import ezFlux from '../state/ez-flux';
+import { connectClass } from 'ez-react';
 
 type DocProps = { onRoute: () => Promise<Object> };
 
