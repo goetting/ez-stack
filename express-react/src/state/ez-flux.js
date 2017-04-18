@@ -7,11 +7,11 @@ const initialState = isNode || typeof window === 'undefined' ? {} : window.ezSta
 
 export default new EZFlux(
   {
-    ...testConfig,
+    test: testConfig,
   },
   {
     initialState,
     throttleUpdates: !isNode,
-    log: { events: isDevelopment },
+    console: isDevelopment ? 'log' : '',
   },
 );
