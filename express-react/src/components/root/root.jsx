@@ -1,6 +1,11 @@
 /* @flow */
 import React from 'react';
+import Layout from '../layout/layout';
 
-export default function Root() {
-  return <div className="root">I am Groot</div>;
-}
+const Root = () => (
+  <Layout>
+    <h1 className="root">EZ</h1>
+  </Layout>
+);
+
+export default Root;

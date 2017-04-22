@@ -2251,13 +2251,13 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-ez-flux@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/ez-flux/-/ez-flux-0.10.0.tgz#5e125937ec1a9529d39345e054c4faadfa028a99"
+ez-flux@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/ez-flux/-/ez-flux-0.10.1.tgz#4b09d780620e047fdd9d374e725b09d381795446"
 
-ez-react@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/ez-react/-/ez-react-0.3.4.tgz#0b55c5037fac73b1f6e1d0a44dd4944a40235222"
+ez-react@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/ez-react/-/ez-react-0.6.3.tgz#77c7cc28b62cf8e0c4bdd947d0f399696e1697c2"
 
 fast-levenshtein@~2.0.4:
   version "2.0.6"
