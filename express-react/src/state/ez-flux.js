@@ -1,17 +1,12 @@
 import EZFlux from 'ez-flux';
 import testConfig from './configs/test.state';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development';
 const isNode = process.title === 'node';
-const initialState = isNode || typeof window === 'undefined' ? {} : window.ezState;
+const options = { initialState: isNode ? {} : window.ezState };
 
-export default new EZFlux(
-  {
-    test: testConfig,
-  },
-  {
-    initialState,
-    throttleUpdates: !isNode,
-    console: isDevelopment ? 'log' : '',
-  },
-);
+if (isDev) {
+  options.onFluxEmit = name => console.log(name);                                                     // eslint-disable-line no-console
+}
+
+export default new EZFlux({ test: testConfig }, options);

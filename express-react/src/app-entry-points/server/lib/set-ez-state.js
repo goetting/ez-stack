@@ -15,7 +15,7 @@ export default async function setEZState({ path, query, params }, res, next) {
     await matchingAppRoute.onRoute(normalizedRouteData);
   } catch (error) {
     res.status(500).end();
-    console.error(error);
+    console.error(error);                                                                             // eslint-disable-line no-console
   }
 
   next();

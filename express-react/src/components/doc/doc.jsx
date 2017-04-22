@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import ezFlux from '../state/ez-flux';
+import ezFlux from '../../state/ez-flux';
 
 type DocProps = { onRoute: () => Promise<Object> };
 

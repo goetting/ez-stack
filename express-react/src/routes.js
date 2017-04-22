@@ -1,6 +1,6 @@
 import ezFlux from './state/ez-flux';
-import Root from './components/root';
-import Doc from './components/doc';
+import Root from './components/root/root';
+import Doc from './components/doc/doc';
 
 export type RouteData = {
   path: string,
