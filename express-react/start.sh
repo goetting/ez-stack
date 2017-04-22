@@ -21,16 +21,16 @@ printf '\e[1;34m%-6s\e[m' "
 
 "
 
-
 JOBS=(
   "webpack --debug --watch --hide-modules --define process.env.NODE_ENV='\"development\"'"
   "NODE_ENV=development nodemon -q --ignore static/** -w ./app ./app/app-entry-points/server/server.js"
-  "nodemon -q --watch src/** --ext js --ext jsx -x 'eslint --color --ext .js --ext .jsx ./src; echo'"
+  "esw -w --cache --color --ext .js --ext .jsx ./src"
   "nodemon -q --watch src/** --ext js --ext jsx -x 'flow; echo'"
   "babel src --out-dir app/ --watch"
+  "jest --watchAll"
 )
-NAMES="WebP,Node,Lint,Flow,Babl"
-COLORS="bgMagenta.black,bgYellow.black,bgGreen.black,bgBlue.black,bgRed.black"
+NAMES="  ,  ,  ,  ,  ,  "
+COLORS="bgMagenta.black,bgYellow.black,bgGreen.black,bgBlue.black,bgRed.black,bgCyan.black"
 
 IFS='%'
 concurrently -k --prefix name --names "$NAMES" --prefix-colors "$COLORS" ${JOBS[*]}

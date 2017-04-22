@@ -10,6 +10,13 @@
     "test": "NODE_ENV=test jest --watch",
     "test:coverage": "NODE_ENV=test jest --coverage"
   },
+  "jest": {
+    "verbose": true,
+    "browser": true,
+    "modulePathIgnorePatterns": [
+      "app"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/goetting/ez-stack.git"
@@ -22,6 +29,10 @@
     "react",
     "express"
   ],
+  "browser": {
+    "morgan": false,
+    "compression": false
+  },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "compression": "^1.6.2",
@@ -29,8 +40,8 @@
     "ez-flux": "^0.10.0",
     "ez-react": "^0.3.4",
     "morgan": "^1.8.1",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0"
   },
@@ -48,7 +59,7 @@
     "babel-preset-react": "^6.23.0",
     "concurrently": "^3.3.0",
     "css-loader": "^0.28.0",
-    "enzyme": "^2.7.1",
+    "enzyme": "^2.8.2",
     "eslint": "3.13.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-flowtype": "2.29.2",
@@ -56,12 +67,13 @@
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.10.0",
+    "eslint-watch": "^3.1.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "jest": "^19.0.2",
     "jsx-loader": "^0.13.2",
     "node-sass": "^4.5.2",
     "nodemon": "^1.11.0",
-    "react-addons-test-utils": "^15.4.2",
+    "react-test-renderer": "^15.5.4",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "webpack": "^2.2.1"

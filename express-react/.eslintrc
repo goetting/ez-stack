@@ -1,9 +1,7 @@
 {
   'extends': ['airbnb', 'plugin:flowtype/recommended'],
   'rules': {
-    'no-param-reassign': 0,
     'no-duplicate-imports': 0,
-    'no-plusplus': 0,
     'valid-typeof': 0,
     'max-len': ['error', 100, 2, {
       ignoreUrls: true,
@@ -18,6 +16,9 @@
     'window': true,
     'document': true,
     'WebSocket': true
+  },
+  'env': {
+    'jest': true,
   },
   'plugins': [
     'flowtype',

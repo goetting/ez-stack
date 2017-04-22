@@ -16,7 +16,7 @@ const normalizeLocation = ({ pathname, search }: Object): RouteData => ({
     .reduce((qry, el) => {
       const [key, val] = el.split('=');
 
-      qry[key] = val;
+      qry[key] = val;                                                                                 // eslint-disable-line no-param-reassign
       return qry;
     }, {}),
 });
