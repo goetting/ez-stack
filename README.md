@@ -1,8 +1,30 @@
-# ez-stack (WIP)
+All commmands executable with npm or yarn.
 
-Currently holds the humble beginnings of a small SSR ezFlux-react-express boilerplate.
+## install
 
-## Outlook
+```sh
+npm install
+```
 
-At least two more (most likely koa-inferno, koa-vue) will be added.  
-Also, instantiation through a CLI built with caporal.
+## dev
+
+Run Tools and Watch (Linter, Flow, Babel, Webpack, Server)
+```sh
+npm start
+```
+
+## build
+Run sequentially: Webpack -p, babel
+```sh
+npm run build
+```
+
+Run example deployment (install, build, serve with node)
+```sh
+npm install;
+npm run build;
+npm run serve;
+```
+
+
+For more detailed tooling calls, consult the "scripts" section of the package.json.
