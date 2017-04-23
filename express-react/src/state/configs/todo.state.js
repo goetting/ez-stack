@@ -11,21 +11,21 @@ export default {
         checked: false,
       },
       {
-        text: 'then do more important stuff',
+        text: 'then, do more important stuff',
         checked: false,
       },
     ],
   },
   actions: {
-    add: (todo: Todo, { todos }: Values): Object => {
-      todos.push(todo);
+    add(text: string, { todos }: Values): Object {
+      todos.push({ text, checked: false });
       return { todos };
     },
-    remove: (i: number, { todos }: Values): Object => {
+    remove(i: number, { todos }: Values): Object {
       todos.splice(i, 1);
       return { todos };
     },
-    toggle: (i: number, { todos }: Values): Object => {
+    toggle(i: number, { todos }: Values): Object {
       todos[i].checked = !todos[i].checked;
       return { todos };
     },

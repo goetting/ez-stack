@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define, import/no-extraneous-dependencies */
 import React from 'react';
 import { mount } from 'enzyme';
-import Todo from './todo';
+import TodoForm from './todo-form';
 import { browserHistory, Router, Route } from 'react-router';
 
 describe('root component', () => {
@@ -9,8 +9,8 @@ describe('root component', () => {
 });
 
 function shouldRender() {
-  const tree = mount(<Todo />);
+  const tree = mount(<TodoForm />);
 
-  expect(tree.find('.todo').node).toBeTruthy();
+  expect(tree.find('.todo-form').node).toBeTruthy();
   tree.unmount();
 }
