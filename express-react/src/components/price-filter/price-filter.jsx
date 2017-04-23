@@ -20,7 +20,7 @@ const RicPriceInput = ({ id, label }: InputProps) => (
   </div>
 );
 const PriceFilter = () => (
-  <Collapsable className="price-filter" label="Price">
+  <Collapsable label="Price">
     <RicPriceInput id="from" label="From" />
     <RicPriceInput id="to" label="To" />
   </Collapsable>

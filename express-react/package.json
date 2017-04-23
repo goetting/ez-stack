@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "bash start.sh",
+    "build": "npm run babel; npm run webpack:build",
     "lint:watch": "esw -w --cache --color --ext .js --ext .jsx ./src",
     "flow:watch": "nodemon -q --watch ./src/** --ext js --ext jsx -x 'flow; echo'",
     "babel": "babel src --out-dir app/",

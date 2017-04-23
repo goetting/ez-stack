@@ -7,7 +7,7 @@ import cache from './lib/cache';
 import setEZState from './lib/set-ez-state';
 import renderAndsendMarkup from './lib/markup';
 
-const port = 3333;
+const port = process.env.PORT || 3333;
 const app = express();
 const router = express.Router();
 const rootDir = __dirname.split('/app-entry-points')[0];
