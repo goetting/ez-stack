@@ -20,16 +20,17 @@ printf '\e[1;34m%-6s\e[m' "
 
 
 "
+npm run babel;
+npm run webpack;
 
 JOBS=(
-  "webpack --debug --watch --hide-modules --define process.env.NODE_ENV='\"development\"'"
-  "NODE_ENV=development nodemon -q --ignore static/** -w ./app ./app/app-entry-points/server/server.js"
-  "esw -w --cache --color --ext .js --ext .jsx ./src"
-  "nodemon -q --watch src/** --ext js --ext jsx -x 'flow; echo'"
-  "babel src --out-dir app/ --watch"
-  "jest --watchAll"
+  "npm run webpack:watch"
+  "npm run babel:watch"
+  "npm run lint:watch"
+  "npm run flow:watch"
+  "npm run serve:watch"
 )
-NAMES="  ,  ,  ,  ,  ,  "
+NAMES="WebP,Babl,Lint,Flow,Node,  "
 COLORS="bgMagenta.black,bgYellow.black,bgGreen.black,bgBlue.black,bgRed.black,bgCyan.black"
 
 IFS='%'

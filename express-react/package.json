@@ -5,9 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "bash start.sh",
-    "lint:fix": "eslint --color --fix --ext .js ./src",
-    "flow": "flow",
-    "test": "NODE_ENV=test jest --watch",
+    "lint:watch": "esw -w --cache --color --ext .js --ext .jsx ./src",
+    "flow:watch": "nodemon -q --watch ./src/** --ext js --ext jsx -x 'flow; echo'",
+    "babel": "babel src --out-dir app/",
+    "babel:watch": "npm run babel -- --watch",
+    "serve": "NODE_ENV=production node ./app/app-entry-points/server/server.js",
+    "serve:watch": "NODE_ENV=development nodemon -q --ignore static/** -w ./app ./app/app-entry-points/server/server.js",
+    "webpack": "webpack --debug --hide-modules --define process.env.NODE_ENV='\"development\"'",
+    "webpack:watch": "npm run webpack -- --watch",
+    "webpack:build": "webpack -p --define process.env.NODE_ENV='\"production\"'",
+    "test:watch": "jest --watchAll",
     "test:coverage": "NODE_ENV=test jest --coverage"
   },
   "jest": {

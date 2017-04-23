@@ -1,6 +1,5 @@
 import EZFlux from 'ez-flux';
 import ezReact from 'ez-react';
-import todo from './configs/todo.state';
 import products from './configs/products.state';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -14,4 +13,4 @@ if (isDev) {
   options.onFluxEmit = name => console.log(name);                                                     // eslint-disable-line no-console
 }
 
-export default new EZFlux({ todo, products }, options);
+export default new EZFlux({ products }, options);

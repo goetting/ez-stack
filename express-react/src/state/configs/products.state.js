@@ -248,7 +248,7 @@ const apiTestResult = {
   "facets": {}
 };
 
-function camelCaseify(obj) {
+function camelCaseify(obj): Object {
   return Object
     .entries(obj)
     .reduce((resObj, [key, val]) => {
@@ -269,14 +269,15 @@ export type ProductType = {
   id: string,
   title: string,
   subtitle: string,
-  pictureUrl: string,
+  pictureUrl?: string,
   highlight: boolean,
-  startData: string,
-  endData: string,
+  startDate: string,
+  endDate: string,
   offerType: string,
   condition: string,
   universe: string,
   model: string,
+  mileage: number,
   make: string,
   registrationYear: string,
   powerHp: number,
@@ -287,17 +288,20 @@ export type ProductType = {
   buyNowPrice: number,
   classifiedPrice: number,
   price: number,
+  location?: string,
   settlerId: string,
 };
 type PriceFilter = { from: number, to: number };
-type FuelFilter = number;
-type Filters = { price?: PriceFilter, fueltype: FuelFilter };
+type FuelId = string;
+type FuelIdMap = { [FuelId]: boolean };
+type Filters = { price: PriceFilter, fuel: FuelIdMap };
 type APIResult = { hits: ProductType[], totalCont: number, cursor: string, facets: Object };
+type PriceFilterUpdate = { key: 'from' | 'to', val: number };
 export type ProductStateValues = { filters: Filters } & APIResult;
 
 
 function getMockData(): APIResult {
-  const data = camelCaseify(apiTestResult);
+  const data: APIResult = camelCaseify(apiTestResult);
   data.hits = data.hits.map(camelCaseify);
   return data;
 }
@@ -309,7 +313,10 @@ export default {
         from: 0,
         to: Infinity,
       },
-      fueltype: -1,
+      fuel: {
+        '1': false,
+        '3': false,
+      },
     },
     hits: [],
     totalCount: 13247,
@@ -319,10 +326,19 @@ export default {
   actions: {
     callAPI(searchQuery: string, values: ProductStateValues): Object | boolean {
       if (values.hits.length) return false;
-      return getMockData();
+
+      Object.assign(values, getMockData());
+      values.filters.price.to = Math.max(...values.hits.map(item => item.price)) || 1e6;
+
+      return values;
     },
-    saveFilter(filters: Filters): Object {
+    toggleFuelFilter(id: string, { filters }: ProductStateValues): Object {
+      filters.fuel[id] = !filters.fuel[id];
       return { filters };
     },
+    setPriceFilter({ key, val }: PriceFilterUpdate, { filters }: ProductStateValues) {
+      filters.price[key] = val;
+      return { filters };
+    }
   },
 };
