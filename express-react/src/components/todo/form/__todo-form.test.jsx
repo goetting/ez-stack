@@ -2,7 +2,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import TodoForm from './todo-form';
-import { browserHistory, Router, Route } from 'react-router';
 
 describe('root component', () => {
   it('should render', shouldRender);

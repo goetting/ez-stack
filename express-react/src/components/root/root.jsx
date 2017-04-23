@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../layout/layout';
-import { Link } from 'react-router-dom'
 
 const Root = () => (
   <Layout>
