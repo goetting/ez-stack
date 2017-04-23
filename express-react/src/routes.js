@@ -1,7 +1,5 @@
 import ezFlux from './state/ez-flux';
-import Root from './components/root/root';
-import Todo from './components/todo/todo';
-import Doc from './components/doc/doc';
+import SearchResuls from './components/search-results/search-results';
 
 export type RouteData = {
   path: string,
@@ -14,25 +12,19 @@ export type RouteConfig = {
   onRoute: (routeData: RouteData) => Promise<void> | void,
 };
 
+const onSearchResults = async routeData =>
+  await ezFlux.actions.products.callAPI(routeData.query.search);
+
 const routes: RouteConfig[] = [
   {
-    path: '/doc',
-    Component: Doc,
-    onRoute: async (routeData) => {
-      await ezFlux.actions.test.loadData(routeData);
-    },
-  },
-  {
-    path: '/todo',
-    Component: Todo,
-    onRoute: async (routeData) => {
-      await ezFlux.actions.test.loadData(routeData);
-    },
-  },
-  {
     path: '/',
-    Component: Root,
-    onRoute: () => {},
+    Component: SearchResuls,
+    onRoute: onSearchResults,
+  },
+  {
+    path: '/search',
+    Component: SearchResuls,
+    onRoute: onSearchResults,
   },
 ];
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Router } from 'react-router';
 import { createMemoryHistory } from 'history';
-import Root from './root';
+import SearchResults from './search-results';
 
 const history = createMemoryHistory({ basename: '/' });
 
@@ -14,10 +14,10 @@ describe('root component', () => {
 function shouldRender() {
   const tree = mount(
     <Router history={history}>
-      <Root />
+      <SearchResults onRoute={() => {}} />
     </Router>,
   );
 
-  expect(tree.find('.root').node).toBeTruthy();
+  expect(tree.find('.search-results').node).toBeTruthy();
   tree.unmount();
 }

@@ -11,6 +11,7 @@ const fillIndexTemplate = (ezState, reactMarkup) =>
   <head>
     <title>EZ-APP</title>
     <link rel="stylesheet" href="/static/ezbundle.css">
+    <link rel="stylesheet" href="https://style-6a38.kxcdn.com/1.4.0/lib/ricardo.min.css">
     <script type="text/javascript">window.ezState = ${JSON.stringify(ezState)};</script>
   </head>
   <body>
