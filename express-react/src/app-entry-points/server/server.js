@@ -25,7 +25,8 @@ app
   .listen(port, () => console.log(`App listening on :${port}`));                                      // eslint-disable-line no-console
 
 router
-  .get('/favicon.ico', (req, res) => res.status(404).end())
-  .get('*', cache.checkRoute)
-  .get('*', setEZState)
-  .get('*', renderAndsendMarkup);
+  .get('*', [
+    cache.checkRoute,
+    setEZState,
+    renderAndsendMarkup,
+  ]);

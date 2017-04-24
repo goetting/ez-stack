@@ -12,10 +12,13 @@ export default class Product extends React.Component {
 
   componentDidMount() {
     if (typeof Image !== 'undefined' && this.props.pictureUrl) {
-      const img = new Image();                                                                        // eslint-disable-line no-undef
+      // push loading tasks to event queue in oder not to block other requests
+      setTimeout(() => {
+        const img = new Image();                                                                        // eslint-disable-line no-undef
 
-      img.onload = () => this.setState({ image: this.props.pictureUrl });
-      img.src = `http://${this.props.pictureUrl}`;
+        img.onload = () => this.setState({ image: this.props.pictureUrl });
+        img.src = `http://${this.props.pictureUrl}`;
+      }, 0)
     }
   }
 

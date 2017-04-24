@@ -27,7 +27,7 @@ class SearchResults extends React.Component {
   render() {
     const { filters } = ezFlux.state.products;
     const filterFuel = Object.values(filters.fuel).find(val => val);
-    const priceInRange = price => price > filters.price.from && price < filters.price.to;
+    const priceInRange = price => price >= filters.price.from && price <= filters.price.to;
     const correctFuelType = fuelId => !filterFuel || filters.fuel[fuelId];
 
     return (
