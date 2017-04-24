@@ -7,6 +7,8 @@ import FuelFilter from '../fuel-filter/fuel-filter';
 import PriceFilter from '../price-filter/price-filter';
 import type { ProductStateValues } from '../../state/configs/products.state';
 
+type Props = { onRoute: () => Promise<Object> };
+
 class SearchResults extends React.Component {
   constructor(props: Props) {
     super(props);
@@ -15,6 +17,12 @@ class SearchResults extends React.Component {
   }
 
   state: ProductStateValues = ezFlux.state.products;
+
+  componentDidMount() {
+    this.props.onRoute();
+  }
+
+  props: Props;
 
   render() {
     const { filters } = ezFlux.state.products;
