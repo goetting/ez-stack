@@ -8,11 +8,12 @@ class TodoForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     ezFlux.actions.todo.add(this.inputRef.value);
     this.inputRef.value = '';
   }
 
+  onSubmit: () => void
   inputRef: Object;
 
   render() {

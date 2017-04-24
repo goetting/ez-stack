@@ -7,12 +7,12 @@ import cache from './lib/cache';
 import setEZState from './lib/set-ez-state';
 import renderAndsendMarkup from './lib/markup';
 
-const port = 3333;
+const port = process.env.PORT || 3333;
 const app = express();
 const router = express.Router();
 const rootDir = __dirname.split('/app-entry-points')[0];
 
-cache.setTTL(1e3 * 60 * 60);
+cache.setTTL(process.env.CACHE_TTL || 1e3 * 60 * 60);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -26,6 +26,8 @@ app
 
 router
   .get('/favicon.ico', (req, res) => res.status(404).end())
-  .get('*', cache.checkRoute)
-  .get('*', setEZState)
-  .get('*', renderAndsendMarkup);
+  .get('*', [
+    cache.checkRoute,
+    setEZState,
+    renderAndsendMarkup,
+  ]);
