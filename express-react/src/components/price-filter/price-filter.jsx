@@ -1,6 +1,6 @@
 /* @flow */
 import React from 'react';
-import ezFlux from '../../state/ez-flux';
+import productStore from '../../stores/product';
 import Collapsable from '../collapsable/collapsable';
 
 type InputProps = { id: string, label: string };
@@ -12,9 +12,9 @@ const RicPriceInput = ({ id, label }: InputProps) => (
       type="number"
       id={id}
       onChange={(e) => {
-        ezFlux.actions.products.setPriceFilter({ key: id, val: Number(e.target.value) });
+        productStore.setPriceFilter({ key: id, val: Number(e.target.value) });
       }}
-      value={ezFlux.state.products.filters.price[id]}
+      value={`${productStore.filters.price[id]}`}
     />
     <label className="mdl-textfield__label" htmlFor={id}>{label}</label>
   </div>

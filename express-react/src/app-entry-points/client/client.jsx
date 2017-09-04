@@ -2,10 +2,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import ezFlux from '../../state/ez-flux';
+import product from '../../stores/product';
 import RouteSwitcher from '../../components/route-switcher';
 
-window.ezFlux = ezFlux;
+window.stores = { product };
 
 ReactDOM.render(
   (

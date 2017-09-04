@@ -1,4 +1,5 @@
 /* @flow *//* eslint-disable no-param-reassign, quote-props, quotes, comma-dangle */
+import { createStore } from 'ez-flux';
 
 const apiTestResult = {
   "hits": [
@@ -296,7 +297,7 @@ type FuelId = string;
 type FuelIdMap = { [FuelId]: boolean };
 type Filters = { price: PriceFilter, fuel: FuelIdMap };
 type APIResult = { hits: ProductType[], totalCont: number, cursor: string, facets: Object };
-type PriceFilterUpdate = { key: 'from' | 'to', val: number };
+type PriceFilterUpdate = { key: 'frjom' | 'to', val: number };
 export type ProductStateValues = { filters: Filters } & APIResult;
 
 
@@ -306,8 +307,8 @@ function getMockData(): APIResult {
   return data;
 }
 
-export default {
-  values: {
+const productStore = createStore({
+  state: {
     filters: {
       price: {
         from: 0,
@@ -323,22 +324,32 @@ export default {
     cursor: '',
     facets: {},
   },
-  actions: {
-    callAPI(searchQuery: string, values: ProductStateValues): Object | boolean {
-      if (values.hits.length) return false;
+  methods: {
+    callAPI(): void {
+      if (this.hits.length) return;
 
-      Object.assign(values, getMockData());
-      values.filters.price.to = Math.max(...values.hits.map(item => item.price)) || 1e6;
+      const data: ProductStateValues = Object.assign(this.$copy(), getMockData());
 
-      return values;
+      data.filters.price.to = Math.max(...data.hits.map(item => item.price)) || 1e6;
+      this.$assign(data);
     },
-    toggleFuelFilter(id: string, { filters }: ProductStateValues): Object {
+    toggleFuelFilter(id: string): void {
+      const { filters } = this;
+
       filters.fuel[id] = !filters.fuel[id];
-      return { filters };
+      this.$assign({ filters });
     },
-    setPriceFilter({ key, val }: PriceFilterUpdate, { filters }: ProductStateValues) {
+    setPriceFilter({ key, val }: PriceFilterUpdate): void {
+      const { filters } = this;
+
       filters.price[key] = val;
-      return { filters };
+      this.$assign({ filters });
     }
   },
-};
+});
+
+if (typeof window !== 'undefined' && window.ezState) {
+  productStore.$assign(window.ezState.product);
+}
+
+export default productStore;

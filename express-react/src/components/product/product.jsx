@@ -1,7 +1,7 @@
 /* @flow */
 import React from 'react';
 import { gearLang, fuelLang } from '../../const/ids-to-lang';
-import type { ProductType } from '../../state/configs/products.state';
+import type { ProductType } from '../../stores/product';
 
 const fallBackImage = 'ricardo-beta-eu-cld-res.cloudinary.com/images/t_450/v1/product/live/801318617_v1_1/kombi-audi-s1-2-0-tfsi-sport';
 const getDateLang = date => `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
@@ -9,20 +9,20 @@ const getDateTimeLang = date => `${getDateLang(date)}, ${date.getHours()}:${date
 
 export default class Product extends React.Component {
   state = { image: fallBackImage };
+  props: ProductType;
 
   componentDidMount() {
     if (typeof Image !== 'undefined' && this.props.pictureUrl) {
+      const image: string = this.props.pictureUrl || '';
       // push loading tasks to event queue in oder not to block other requests
       setTimeout(() => {
         const img = new Image();                                                                        // eslint-disable-line no-undef
 
-        img.onload = () => this.setState({ image: this.props.pictureUrl });
-        img.src = `http://${this.props.pictureUrl}`;
-      }, 0)
+        img.onload = () => this.setState({ image });
+        img.src = `http://${image}`;
+      }, 0);
     }
   }
-
-  props: ProductType;
 
   render() {
     const item = this.props;

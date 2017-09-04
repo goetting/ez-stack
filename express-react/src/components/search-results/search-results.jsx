@@ -2,30 +2,22 @@
 import React from 'react';
 import Layout from '../layout/layout';
 import Product from '../product/product';
-import ezFlux from '../../state/ez-flux';
+import connect from '../../lib/connect';
 import FuelFilter from '../fuel-filter/fuel-filter';
 import PriceFilter from '../price-filter/price-filter';
-import type { ProductStateValues } from '../../state/configs/products.state';
+import type { ProductStateValues } from '../../stores/product';
 
-type Props = { onRoute: () => Promise<Object> };
+type Props = ProductStateValues & { onRoute: () => Promise<Object> };
 
-class SearchResults extends React.Component {
-  constructor(props: Props) {
-    super(props);
-
-    ezFlux.plugins.connectInstance(this, { products: (state: ProductStateValues) => state });
-  }
-
-  state: ProductStateValues = ezFlux.state.products;
+class SearchResultsBase extends React.Component {
+  props: Props;
 
   componentDidMount() {
     this.props.onRoute();
   }
 
-  props: Props;
-
   render() {
-    const { filters } = ezFlux.state.products;
+    const { filters } = this.props;
     const filterFuel = Object.values(filters.fuel).find(val => val);
     const priceInRange = price => price >= filters.price.from && price <= filters.price.to;
     const correctFuelType = fuelId => !filterFuel || filters.fuel[fuelId];
@@ -38,7 +30,7 @@ class SearchResults extends React.Component {
             <FuelFilter />
           </nav>
           <main className="ric-articles-list-view">
-            {this.state.hits
+            {this.props.hits
               .filter(item => correctFuelType(item.fuelId) && priceInRange(item.price))
               .map(item => <Product {...item} key={item.id} />)
             }
@@ -48,5 +40,10 @@ class SearchResults extends React.Component {
     );
   }
 }
+
+const SearchResults = connect(
+  SearchResultsBase,
+  { product: (state: ProductStateValues) => state },
+);
 
 export default SearchResults;

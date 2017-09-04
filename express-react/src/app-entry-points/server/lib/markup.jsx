@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import RouteSwitcher from '../../../components/route-switcher';
-import ezFlux from '../../../state/ez-flux';
+import productStore from '../../../stores/product';
 import cache from './cache';
 
 const fillIndexTemplate = (ezState, reactMarkup) =>
@@ -47,10 +47,10 @@ export default function renderAndsendMarkup(req, res) {
   if (context.url) {
     res.redirect(301, context.url);
   } else {
-    const appMarkup = fillIndexTemplate(ezFlux.state, reactMarkup);
+    const appMarkup = fillIndexTemplate({ product: productStore.$copy() }, reactMarkup);
 
     res.send(appMarkup);
     cache.set(req, appMarkup);
   }
-  ezFlux.resetState();
+  productStore.$reset();
 }

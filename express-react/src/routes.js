@@ -1,4 +1,4 @@
-import ezFlux from './state/ez-flux';
+import productStore from './stores/product';
 import SearchResuls from './components/search-results/search-results';
 
 export type RouteData = {
@@ -12,8 +12,7 @@ export type RouteConfig = {
   onRoute: (routeData: RouteData) => Promise<void> | void,
 };
 
-const onSearchResults = async routeData =>
-  await ezFlux.actions.products.callAPI(routeData.query.search);
+const onSearchResults = routeData => productStore.callAPI(routeData.query.search);
 
 const routes: RouteConfig[] = [
   {
